@@ -1,13 +1,6 @@
-import java.util.Random;
-
 /**
- * This is a Parrot object class to simulate pet behaviour.
- * This class models parrot-related interactions like flying, feeding, and
- * checking status of attributes like isTamed and isAlive.
- * This class demonstrates basic object-oriented principles and uses concepts such as:
- * encapsulation and input validation.
+ * A Parrot object class to simulate pet parrot attributes
  *
- * @author : Jacqueline Robinson
  * */
 public class Parrot {
     /**
@@ -15,169 +8,224 @@ public class Parrot {
      * */
     private String name;
     /**
-     * Health of Parrot (range: 0.0 to 5.0).
+     * Health of Parrot measured in ints, range 0- 5. If he has more than 3.0 kgs in his stomach his health goes down
      * */
-    private double health;
+    private int health;
     /**
      * Crumbs to feed parrot in kg
      * */
-    private double crumbs;
+    public double crumbs = 0.0;
     /**
-     * Whether or not parrot is tamed
+     * Whether parrot is tamed
      * */
     private boolean isTamed;
     /**
      * Is parrot alive or not
      * */
     private boolean isAlive;
-
-
     /**
-     * Method that Feeds pet parrot. If the parrot becomes overfed, it may become sick.
-     * @param foodInKg is amount of food to feed parrot
-     * */
-    public void feedParrot(double foodInKg){
-        this.health += foodInKg;
-        if(isSick(this.health)){
-            System.out.println("Parrot is sick");
-        }
-    }
-    /**
-     * Method that causes parrot to fly
-     * @param isTamed lets user know if parrot is tamed and allows certain actions
-     * */
-    public void makeFly(boolean isTamed){
-
-    }
-    /**
-     * Method that causes parrot to stay
-     * @param isTamed lets user know if parrot is tamed and allows certain actions
-     * */
-    public void makeStay(boolean isTamed){
-
-    }
-    /**
-     * Method that hits the parrot
-     * @param hits is amount of time user needs to hit parrot
-     * */
-    public void hitParrot(int hits){
-
-    }
-
-    /**
-     * Method that tells user the health status of the parrot being sick or not
-     * @param health is parrot's current health value
-     * */
-    public boolean isSick(double health){
-        boolean isSick = false;
-        if(health < 1.0 || health > 3.0){
-            isSick = true;
-        }
-
-        return  isSick;
-    }
-    /**
-     * Method that tells user the health status of being sick or not
-     * @param health is parrot's current health value
-     * */
-    public boolean isTamed(){
-        boolean isTamed = Math.random() < 0.5;
-        System.out.println(isTamed);
-        return  isTamed;
-    }
-    /**
-     * Method that tells user the  status of being sick or not
-     * @param health is parrot's current health value
-     * */
-    public boolean isAlive(double health) {
-        boolean isAlive = true;
-        if(health <= 0.0){
-            isAlive = false;
-        }
-        return isAlive;
-    }
-
-    /**
-     * This method returns a joke related to birds
-     * @return A joke
+     * Is parrot sitting or not
      */
-    public String tellAJoke(){
-        String[] jokes = {
-                "What do you call a lost parrot? \n A polygon",
-                "What do you call two black birds that stick together? \n Vel-Crows",
-                "Why do hummingbirds hum? \nThey don’t know the lyrics"
-        };
-        Random random = new Random();
-        int randomIndex = random.nextInt(jokes.length);
-        return jokes[randomIndex];
+    private boolean isSitting;
+
+    /**
+     * Is parrot flying or not
+     */
+    private boolean isFlying;
+
+    /**
+     * This uses math.random to assign true or false to tame.
+     * @return boolean to let someone know if a parrot is tamed or not
+     */
+    public boolean tameRandomly(){
+        /* Will return true if the random number is between 0 and 0.5, false otherwise */
+        boolean tame = (Math.random() < 0.50);
+        return  tame;
     }
 
-
-
+    /**
+     *
+     * @return boolean to let consumer know whether a parrot is alive or not.
+     */
     public boolean isAlive() {
         return isAlive;
     }
 
+    /**
+     * This sets the parrot's alive status to true or false
+     * @param alive
+     */
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
 
+    /**
+     * This sets the parrot's tamed status to true or false
+     * @param tamed
+     */
     public void setTamed(boolean tamed) {
         isTamed = tamed;
     }
 
+    /**
+     * This helps someone know if a parrot is tamed or not
+     * @return boolean for whether parrot is tamed or not
+     */
+    public boolean getTamedStatus(){
+        return this.isTamed;
+    }
+
+    /**
+     * This returns the name of the parrot
+     * @return string of name of parrot
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * This sets the name of a parrot
+     * @param name is used to set name of parrot
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-
-
-    public double getHealth() {
-        return health;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
+    /**
+     * Returns health of a parrot measured in int units
+     * @return health value
+     */
+    public int getHealth() {
+        return this.health;
     }
 
     /**
-     * Constructor for Parrot with default values such as name "Petey",
-     * full health, and set to alive and tamed.
+     * Lowers health of parrot based on int health amount
+     * @param health is how many health units to decrease for parrot
+     */
+    public void lowerHealth(int health) {
+        this.health = this.health - health;
+    }
+
+    /**
+     * Increases health of parrod based on int health amount
+     * @param health is how many health units to increase for parrot
+     */
+    public void increaseHealth(int health) {
+        this.health = this.health + health;
+    }
+
+    /**
+     * Constructor for Parrot with default  name "Polly"
      */
     public Parrot(){
-        this.name = "Petey";
-        this.health = 3.0;
-        this.isTamed = true;
+        this.name = "Polly";
+        this.crumbs = 0.1;
+        this.health = 3;
+        this.isTamed = false;
         this.isAlive = true;
+        this.isSitting = false;
+        this.isFlying = true;
+
     }
     /**
      * Creates a customized Parrot object
      *
-     * @param name the name of the parrot
-     * @param health the initial health value
-     * @param isTamed whether the parrot is tamed
-     * @param isAlive whether the parrot is alive
+     * @param name will be the name of the parrot
      */
-    public Parrot(String name, double health, boolean isTamed, boolean isAlive){
+    public Parrot(String name){
         this.name = name;
-        this.health = health;
-        this.isTamed = isTamed;
-        this.isAlive = isAlive;
+        this.health = 3;
+        this.isTamed = false;
+        this.isAlive = true;
+        this.crumbs = 0.1;
+        this.isSitting = false;
+        this.isFlying = true;
+
     }
 
     /**
-     * Returns a short summary of the parrot's current state
+     * Returns a short summary of a parrot's current state on Name, health, istamed, isAlive, isFlying, isSitting
+     * and how many crumbs it has in its stomach
      * @return string report
      */
     @Override
     public String toString() {
-        return "Parrot Report"+"\n--------------"+ "\nName:"+
+        return "\nParrot Stats"+"\n--------------"+ "\nName:"+
                 this.name + "\nHealth: "+
                 this.health +"\nisTamed: "+
-                this.isTamed +"\nisAlive:  "+ this.isAlive;
+                this.isTamed +"\nisAlive:  "+ this.isAlive +
+                "\nIs Flying: "+
+                this.isFlying + "\nIs Sitting: "+
+                this.isSitting + "\nHas this many crumbs in stomach: "+ this.crumbs +"\n";
     }
+
+    /**
+     * This is a hardcoded overloaded toString method because I wanted all the parrot stats to display horizontally
+     * @param p is the first parrot object
+     * @param p1 is the second parrot object
+     * @param p2 is the third parrot object
+     * @return String which is a report on all the parrot attributes such as name, health, isTamed, isAlive, isFlying, is
+     * Sitting, has crumbs in stomach
+     */
+    public String toString(Parrot p, Parrot p1, Parrot p2) {
+        return "Parrot Stats"+"\n----------------------------------------------------------------------"+ "\nName:"+
+                p.getName() + "\t\t\t\t\t"+ "Name:"+p1.getName() + "\t\t\t\t"+ "Name:"+ p2.getName() +
+                "\nHealth: "+
+                p.getHealth() + "\t\t\t\t\t"+ "Health: "+ p1.getHealth() + "\t\t\t\t"+ "Health: "+ p2.getHealth() +"\t\t"	+"\nisTamed: "+
+                p.getTamedStatus() + "\t\t\t\t"+ "isTamed: "+ p1.getTamedStatus() + "\t\t\t"+ "isTamed: "+ p2.getTamedStatus() +"\nisAlive:  "+
+                p.isAlive() + "\t\t\t\t"+  "isAlive: "+ p1.isAlive() + "\t\t\t"+  "isAlive: "+ p2.isAlive() +
+                "\nIs Flying: "+
+                p.isFlying() + "\t\t\t\t"+ "isFlying: "+ p1.isFlying() + "\t\t\t"+ "isFlying: "+ p2.isFlying() + "\nIs Sitting: "+
+                p.isSitting() + "\t\t\t"+ "isSitting: "+ p1.isSitting() + "\t\t"+ "isSitting: "+ p2.isSitting() +
+                "\ncrumbs in stomach: "+ p.getCrumbs() +"kg "+ "\t"+  "crumbs in stomach: "+ p1.getCrumbs() +"kg "+
+                "crumbs in stomach: "+  p2.getCrumbs()+"kg ";
+    }
+
+    /**
+     * This sets the amount of crumbs in a parrot's stomach by increasing by 1
+     */
+    public void setCrumbs(){
+        this.crumbs += 1;
+    }
+
+    /**
+     * This returns how many crumbs are in a parrot's stomach
+     * @return the crumb amount in double format
+     */
+    public double getCrumbs(){
+        return this.crumbs;
+    }
+
+    /**
+     * This sets the parrot's status of sitting to be true or false
+     * @param sitting is a boolean to toggle a parrot sitting
+     */
+    public void setSitting(Boolean sitting){
+        this.isSitting = sitting;
+    }
+
+    /**
+     * This returns the boolean for whether a parrot is flying
+     * @return boolean for if parrot is flying
+     */
+    public boolean isFlying(){
+        return this.isFlying;
+    }
+    /**
+     * This sets the parrot's status of flying to be true or false
+     * @param flying is a boolean to toggle a parrot flying
+     */
+    public void setFlying(Boolean flying){
+        this.isFlying = flying;
+    }
+
+    /**
+     * This returns whether a parrot is sitting or not
+     * @return boolean for parrot's sitting status
+     */
+    public boolean isSitting(){
+        return this.isSitting;
+    }
+
 }
